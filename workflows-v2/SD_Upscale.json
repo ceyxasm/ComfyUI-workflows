@@ -1,0 +1,1582 @@
+{
+  "last_node_id": 70,
+  "last_link_id": 88,
+  "nodes": [
+    {
+      "id": 24,
+      "type": "UpscaleModelLoader",
+      "pos": [
+        1260,
+        504
+      ],
+      "size": {
+        "0": 315,
+        "1": 58
+      },
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "UPSCALE_MODEL",
+          "type": "UPSCALE_MODEL",
+          "links": [
+            27,
+            88
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "UpscaleModelLoader"
+      },
+      "widgets_values": [
+        "4xUltrasharp_4xUltrasharpV10.pt"
+      ]
+    },
+    {
+      "id": 18,
+      "type": "ImageResize+",
+      "pos": [
+        2214,
+        342
+      ],
+      "size": {
+        "0": 324,
+        "1": 218
+      },
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 29
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            18
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ImageResize+"
+      },
+      "widgets_values": [
+        1280,
+        1280,
+        "lanczos",
+        false,
+        "always",
+        0
+      ]
+    },
+    {
+      "id": 7,
+      "type": "SUPIR_first_stage",
+      "pos": [
+        2646,
+        288
+      ],
+      "size": {
+        "0": 330,
+        "1": 170
+      },
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "SUPIR_VAE",
+          "type": "SUPIRVAE",
+          "link": 82
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 18
+        }
+      ],
+      "outputs": [
+        {
+          "name": "SUPIR_VAE",
+          "type": "SUPIRVAE",
+          "links": [
+            22
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "denoised_image",
+          "type": "IMAGE",
+          "links": [
+            5,
+            59
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "denoised_latents",
+          "type": "LATENT",
+          "links": [
+            58
+          ],
+          "shape": 3,
+          "slot_index": 2
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SUPIR_first_stage"
+      },
+      "widgets_values": [
+        true,
+        512,
+        512,
+        "auto"
+      ]
+    },
+    {
+      "id": 60,
+      "type": "SetNode",
+      "pos": [
+        1980,
+        54
+      ],
+      "size": {
+        "0": 210,
+        "1": 58
+      },
+      "flags": {
+        "collapsed": true
+      },
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "SUPIRMODEL",
+          "type": "SUPIRMODEL",
+          "link": 78
+        }
+      ],
+      "outputs": [
+        {
+          "name": "*",
+          "type": "*",
+          "links": null
+        }
+      ],
+      "title": "Set_SUPIR_MODEL",
+      "properties": {
+        "previousName": "SUPIR_MODEL"
+      },
+      "widgets_values": [
+        "SUPIR_MODEL"
+      ]
+    },
+    {
+      "id": 61,
+      "type": "GetNode",
+      "pos": [
+        3636,
+        324
+      ],
+      "size": {
+        "0": 210,
+        "1": 58
+      },
+      "flags": {
+        "collapsed": true
+      },
+      "order": 1,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "SUPIRMODEL",
+          "type": "SUPIRMODEL",
+          "links": [
+            79
+          ],
+          "slot_index": 0
+        }
+      ],
+      "title": "Get_SUPIR_MODEL",
+      "properties": {},
+      "widgets_values": [
+        "SUPIR_MODEL"
+      ]
+    },
+    {
+      "id": 58,
+      "type": "SUPIR_model_loader",
+      "pos": [
+        1098,
+        72
+      ],
+      "size": [
+        792,
+        288
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "SUPIR_model",
+          "type": "SUPIRMODEL",
+          "links": [
+            78
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "SUPIR_VAE",
+          "type": "SUPIRVAE",
+          "links": [
+            81
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SUPIR_model_loader"
+      },
+      "widgets_values": [
+        "supir\\SUPIR-v0Q.ckpt",
+        "lighting\\juggernautXL_v9Rdphoto2Lightning4s.safetensors",
+        false,
+        "auto"
+      ]
+    },
+    {
+      "id": 63,
+      "type": "SetNode",
+      "pos": [
+        1962,
+        162
+      ],
+      "size": {
+        "0": 210,
+        "1": 58
+      },
+      "flags": {
+        "collapsed": true
+      },
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "SUPIRVAE",
+          "type": "SUPIRVAE",
+          "link": 81
+        }
+      ],
+      "outputs": [
+        {
+          "name": "*",
+          "type": "*",
+          "links": null
+        }
+      ],
+      "title": "Set_SUPIR_VAE",
+      "properties": {
+        "previousName": "SUPIR_VAE"
+      },
+      "widgets_values": [
+        "SUPIR_VAE"
+      ]
+    },
+    {
+      "id": 62,
+      "type": "GetNode",
+      "pos": [
+        3294,
+        486
+      ],
+      "size": {
+        "0": 210,
+        "1": 58
+      },
+      "flags": {
+        "collapsed": true
+      },
+      "order": 3,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "SUPIRMODEL",
+          "type": "SUPIRMODEL",
+          "links": [
+            80
+          ],
+          "slot_index": 0
+        }
+      ],
+      "title": "Get_SUPIR_MODEL",
+      "properties": {},
+      "widgets_values": [
+        "SUPIR_MODEL"
+      ]
+    },
+    {
+      "id": 64,
+      "type": "GetNode",
+      "pos": [
+        2412,
+        270
+      ],
+      "size": {
+        "0": 210,
+        "1": 58
+      },
+      "flags": {
+        "collapsed": true
+      },
+      "order": 4,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "SUPIRVAE",
+          "type": "SUPIRVAE",
+          "links": [
+            82
+          ],
+          "slot_index": 0
+        }
+      ],
+      "title": "Get_SUPIR_VAE",
+      "properties": {},
+      "widgets_values": [
+        "SUPIR_VAE"
+      ]
+    },
+    {
+      "id": 21,
+      "type": "SUPIR_encode",
+      "pos": [
+        3402,
+        144
+      ],
+      "size": {
+        "0": 315,
+        "1": 126
+      },
+      "flags": {},
+      "order": 21,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "SUPIR_VAE",
+          "type": "SUPIRVAE",
+          "link": 22
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 59
+        }
+      ],
+      "outputs": [
+        {
+          "name": "latent",
+          "type": "LATENT",
+          "links": [
+            76
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SUPIR_encode"
+      },
+      "widgets_values": [
+        true,
+        512,
+        "auto"
+      ]
+    },
+    {
+      "id": 65,
+      "type": "GetNode",
+      "pos": [
+        3708,
+        54
+      ],
+      "size": {
+        "0": 210,
+        "1": 58
+      },
+      "flags": {
+        "collapsed": true
+      },
+      "order": 5,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "SUPIRVAE",
+          "type": "SUPIRVAE",
+          "links": [
+            84
+          ],
+          "slot_index": 0
+        }
+      ],
+      "title": "Get_SUPIR_VAE",
+      "properties": {},
+      "widgets_values": [
+        "SUPIR_VAE"
+      ]
+    },
+    {
+      "id": 25,
+      "type": "ImageUpscaleWithModel",
+      "pos": [
+        1818,
+        450
+      ],
+      "size": {
+        "0": 241.79998779296875,
+        "1": 46
+      },
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "upscale_model",
+          "type": "UPSCALE_MODEL",
+          "link": 27
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 28
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            29
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ImageUpscaleWithModel"
+      }
+    },
+    {
+      "id": 13,
+      "type": "LoadImage",
+      "pos": [
+        1116,
+        666
+      ],
+      "size": [
+        702,
+        990
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            4,
+            28,
+            85
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "big car (2).png",
+        "image"
+      ]
+    },
+    {
+      "id": 66,
+      "type": "SetNode",
+      "pos": [
+        1890,
+        648
+      ],
+      "size": {
+        "0": 210,
+        "1": 58
+      },
+      "flags": {
+        "collapsed": true
+      },
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "link": 85
+        }
+      ],
+      "outputs": [
+        {
+          "name": "*",
+          "type": "*",
+          "links": null
+        }
+      ],
+      "title": "Set_BASE_IMAGE",
+      "properties": {
+        "previousName": "BASE_IMAGE"
+      },
+      "widgets_values": [
+        "BASE_IMAGE"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "Image Comparer (rgthree)",
+      "pos": {
+        "0": 1890,
+        "1": 702,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
+      "size": [
+        1332,
+        990
+      ],
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image_a",
+          "type": "IMAGE",
+          "link": 4,
+          "dir": 3
+        },
+        {
+          "name": "image_b",
+          "type": "IMAGE",
+          "link": 5,
+          "dir": 3
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "comparer_mode": "Slide"
+      },
+      "widgets_values": [
+        [
+          "/view?filename=rgthree.compare._temp_gphzp_00003_.png&type=temp&subfolder=&rand=0.4582794100697112",
+          "/view?filename=rgthree.compare._temp_gphzp_00004_.png&type=temp&subfolder=&rand=0.3891622276382529"
+        ]
+      ]
+    },
+    {
+      "id": 67,
+      "type": "GetNode",
+      "pos": [
+        4500,
+        54
+      ],
+      "size": {
+        "0": 210,
+        "1": 58
+      },
+      "flags": {
+        "collapsed": true
+      },
+      "order": 7,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            86
+          ],
+          "slot_index": 0
+        }
+      ],
+      "title": "Get_BASE_IMAGE",
+      "properties": {},
+      "widgets_values": [
+        "BASE_IMAGE"
+      ]
+    },
+    {
+      "id": 38,
+      "type": "PlaySound|pysssss",
+      "pos": [
+        4518,
+        162
+      ],
+      "size": {
+        "0": 315,
+        "1": 106
+      },
+      "flags": {
+        "collapsed": true
+      },
+      "order": 25,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "any",
+          "type": "*",
+          "link": 44
+        }
+      ],
+      "outputs": [
+        {
+          "name": "*",
+          "type": "*",
+          "links": null,
+          "shape": 6
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PlaySound|pysssss"
+      },
+      "widgets_values": [
+        "always",
+        0.5,
+        "notify.mp3"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "SUPIR_sample",
+      "pos": [
+        3870,
+        414
+      ],
+      "size": {
+        "0": 315,
+        "1": 454
+      },
+      "flags": {},
+      "order": 23,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "SUPIR_model",
+          "type": "SUPIRMODEL",
+          "link": 79
+        },
+        {
+          "name": "latents",
+          "type": "LATENT",
+          "link": 76
+        },
+        {
+          "name": "positive",
+          "type": "SUPIR_cond_pos",
+          "link": 6
+        },
+        {
+          "name": "negative",
+          "type": "SUPIR_cond_neg",
+          "link": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "latent",
+          "type": "LATENT",
+          "links": [
+            11
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SUPIR_sample"
+      },
+      "widgets_values": [
+        174277455657960,
+        "fixed",
+        10,
+        5,
+        5,
+        5,
+        1.003,
+        1,
+        0.9,
+        0.9500000000000001,
+        10,
+        false,
+        "RestoreDPMPP2MSampler",
+        1024,
+        512
+      ]
+    },
+    {
+      "id": 9,
+      "type": "SUPIR_decode",
+      "pos": [
+        4176,
+        90
+      ],
+      "size": {
+        "0": 315,
+        "1": 102
+      },
+      "flags": {},
+      "order": 24,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "SUPIR_VAE",
+          "type": "SUPIRVAE",
+          "link": 84
+        },
+        {
+          "name": "latents",
+          "type": "LATENT",
+          "link": 11
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            44,
+            67
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SUPIR_decode"
+      },
+      "widgets_values": [
+        true,
+        512
+      ]
+    },
+    {
+      "id": 57,
+      "type": "ColorMatch",
+      "pos": [
+        4824,
+        90
+      ],
+      "size": {
+        "0": 315,
+        "1": 78
+      },
+      "flags": {},
+      "order": 26,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image_ref",
+          "type": "IMAGE",
+          "link": 86
+        },
+        {
+          "name": "image_target",
+          "type": "IMAGE",
+          "link": 67
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            68
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ColorMatch"
+      },
+      "widgets_values": [
+        "mkl"
+      ]
+    },
+    {
+      "id": 36,
+      "type": "CR Simple Text Watermark",
+      "pos": [
+        5274,
+        90
+      ],
+      "size": {
+        "0": 315,
+        "1": 270
+      },
+      "flags": {},
+      "order": 27,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 68
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            45,
+            74
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "show_help",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CR Simple Text Watermark"
+      },
+      "widgets_values": [
+        "SUPIR",
+        "bottom right",
+        0.3,
+        "AlumniSansCollegiateOne-Regular.ttf",
+        50,
+        "custom",
+        20,
+        20,
+        "#000000"
+      ]
+    },
+    {
+      "id": 39,
+      "type": "SaveImage",
+      "pos": [
+        5688,
+        72
+      ],
+      "size": [
+        288,
+        468
+      ],
+      "flags": {},
+      "order": 28,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 45
+        }
+      ],
+      "properties": {},
+      "widgets_values": [
+        "SUPIR_"
+      ]
+    },
+    {
+      "id": 35,
+      "type": "CR Simple Text Watermark",
+      "pos": [
+        5256,
+        810
+      ],
+      "size": {
+        "0": 315,
+        "1": 270
+      },
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 87
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            46,
+            75
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "show_help",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CR Simple Text Watermark"
+      },
+      "widgets_values": [
+        "original",
+        "bottom right",
+        0.3,
+        "AlumniSansCollegiateOne-Regular.ttf",
+        50,
+        "custom",
+        20,
+        20,
+        "#000000"
+      ]
+    },
+    {
+      "id": 68,
+      "type": "GetNode",
+      "pos": [
+        5022,
+        846
+      ],
+      "size": {
+        "0": 210,
+        "1": 58
+      },
+      "flags": {
+        "collapsed": true
+      },
+      "order": 8,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            87
+          ],
+          "slot_index": 0
+        }
+      ],
+      "title": "Get_BASE_IMAGE",
+      "properties": {},
+      "widgets_values": [
+        "BASE_IMAGE"
+      ]
+    },
+    {
+      "id": 40,
+      "type": "SaveImage",
+      "pos": [
+        5652,
+        774
+      ],
+      "size": [
+        288,
+        396
+      ],
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 46
+        }
+      ],
+      "properties": {},
+      "widgets_values": [
+        "ORIGINAL_"
+      ]
+    },
+    {
+      "id": 59,
+      "type": "Image Comparer (rgthree)",
+      "pos": {
+        "0": 6120,
+        "1": 54,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
+      "size": [
+        1962,
+        1638
+      ],
+      "flags": {},
+      "order": 29,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image_a",
+          "type": "IMAGE",
+          "link": 74,
+          "dir": 3
+        },
+        {
+          "name": "image_b",
+          "type": "IMAGE",
+          "link": 75,
+          "dir": 3
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "comparer_mode": "Slide"
+      },
+      "widgets_values": [
+        [
+          "/view?filename=rgthree.compare._temp_ompdt_00003_.png&type=temp&subfolder=&rand=0.958940853032719",
+          "/view?filename=rgthree.compare._temp_ompdt_00004_.png&type=temp&subfolder=&rand=0.9732207483484339"
+        ]
+      ]
+    },
+    {
+      "id": 6,
+      "type": "Note",
+      "pos": [
+        144,
+        -18
+      ],
+      "size": {
+        "0": 790,
+        "1": 940
+      },
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "properties": {
+        "text": ""
+      },
+      "widgets_values": [
+        "               _              ___   ____\n __ _________ (_)_ ____ _    / _ | /  _/\n/ // / __(_-</ / // /  ' \\_ / __ |_/ /  \n\\_,_/_/ /___/_/\\_,_/_/_/_(_)_/ |_/___/  \n                                        \n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@(,%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@..  ..,,*/(@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@&&&&(....   ,*/#(%&&&&&&&&@@@@@@@@@@@@@@@@@@@@@@@@@@\n@@@@@@@@@@@@@@@@@@@@@@@&&&&%%%%#.   .. **((*,*(###%%%%%%&&&&@@@@@@@@@@@@@@@@@@@@\n@@@@@@@@@@@@@@@@@@@&&&&%%%###((((#//,,,*/,.%%@////(((###%%%%&&&&@@@@@@@@@@@@@@@@\n@@@@@@@@@@@@@@@@&&&%%%###((//***.&&@@#(#/&@@@@.,,,***//((###%%%&&&&@@@@@@@@@@@@@\n@@@@@@@@@@@@@@&&&%%%##((/**,,...  @%(/*((&@@&     ..,,**//((###%%%&&&@@@@@@@@@@@\n@@@@@@@@@@@@&&&%%##((//*,,.         &,.//%&          ..,,**//((##%%%&&&@@@@@@@@@\n@@@@@@@@@@@&&%%%#((//*,..           ,,/#@/              ..,**//((##%%%&&&@@@@@@@\n@@@@@@@@@&&&%%##((/*,,.             .&%@#@                ..,**//((##%%%&&@@@@@@\n@@@@@@@@&&&%%##((/*,,.             **/@@@@@                ..,,**/((##%%%&&@@@@@\n@@@@@@@@&&%%##((/*,,.         .. * ,.,@@@@@@@@&&            ..,,**/((##%%%&&@@@@\n@@@@@@@&&&%%##(//*,..       ..**@@&%.//,/@@@@@@@@&           ..,,**/((##%%&&&@@@\n@@@@@@@&&&%%#((/**,..      ./%&.   .,**,*/(#%@@@@&%          ...,**//(##%%&&&@@@\n@@@@@@@&&&%%##(//*,,.      (#% /...,.*/,,////*  .&&          ..,,**/((##%%&&@@@@\n@@@@@@@@&&%%%#((//*,..     ,*   ,*/(((%/(%&@&.    ,/.       ..,,**/((##%%&&@@@@@\n@@@@@@@@@&&%%%##(//*,,.. ..,    ..**,*/*/((@@,     */,    ..,,**//((##%%&&&@@@@@\n@@@@@@@@@@&&&%%##((//**..*..    .,/**%//@##%&      .,(*...,,**//((##%%%&&@@@@@@@\n\n\n** SUPIR BASIC WORKFLOW BY URSIUM.AI **\nCC-BY LICENSE - https://creativecommons.org/licenses/by/4.0/\nIf you find this useful, go give a like to https://www.youtube.com/@stephantual\nHelp Aliens refuel their spaceship at: https://ko-fi.com/stephantual\nAuthor: Stephan Tual\nDate Updated: 03/17/2024\nVersion: 1.1 PUBLIC RELEASE\n\n\n** HISTORY **\n03/14/2023 - Releasing the workflow while recording the tutorial video\n03/19/2023 - Updated post YouTube Video\n\n\n** SUPPORT **\nFeel free to join our discord at tinyurl.com/URSIUM for showing of your work or sharing improved version of this workflow.\nBut if you experience an issue, first:\na)  Rewatch the video: I cover most of the error message you might get if you make a mistake\nb)  Run quick google search on the error message\nc)  Do a github search on the repo of the node that's giving you trouble. \nPlease remember: The workflow authors are not always the author of the NODES. In addition, the authors of the nodes are rarely the author of the underlying algorythm: In other words, most nodes are 'wrapping' code that may have bugs which neither myself nor the node author can help with. You need to contact the correct person.\n\n\n** DISCLAIMER **\nThis worfklow is provided 'AS IS' and is not supported in ANY way by the author. I am not responsible if the installation of custom nodes breaks your comfyUI install, or for anything for that matter.\nIf you have technical issues with nodes, please check the github for respective nodes - they get updated almost every day in some cases, and may not behave the same on windows/linux/mac etc. \nEach node used here is the property of their respective author - and they may contain non-commercial clauses.\n\n\n** PURPOSE **\nTo leverage SUPIR while providing a full tutorial on:\na) exactly how it works (stages)\nb) detail every setting\n\n\n** USAGE ** \n0. Watch the tuturial video(s) posted on my YT channel (https://www.youtube.com/@stephantual)\n1. Choose a photo - refer to the video for advice on settings for now please :)\n2. Experiment! this is to learn, not an \"app\" :)\n\n\nDiscuss at tinyurl.com/URSIUM\n"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 70,
+      "type": "Reroute (rgthree)",
+      "pos": {
+        "0": 1606,
+        "1": 505.7878112792969,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
+      "size": [
+        40,
+        30
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "link": 88,
+          "dir": 3,
+          "has_old_label": true,
+          "label": " "
+        }
+      ],
+      "outputs": [
+        {
+          "name": "UPSCALE_MODEL",
+          "type": "UPSCALE_MODEL",
+          "links": null,
+          "dir": 4,
+          "has_old_label": true,
+          "label": " "
+        }
+      ],
+      "properties": {
+        "resizable": false,
+        "size": [
+          40,
+          30
+        ]
+      }
+    },
+    {
+      "id": 69,
+      "type": "Fast Groups Bypasser (rgthree)",
+      "pos": {
+        "0": 666,
+        "1": 990,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
+      "size": {
+        "0": 252,
+        "1": 162
+      },
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "OPT_CONNECTION",
+          "type": "*",
+          "links": null
+        }
+      ],
+      "properties": {
+        "matchColors": "brown",
+        "matchTitle": "",
+        "showNav": true,
+        "sort": "position",
+        "customSortAlphabet": "",
+        "toggleRestriction": "default"
+      }
+    },
+    {
+      "id": 12,
+      "type": "SUPIR_conditioner",
+      "pos": [
+        3384,
+        576
+      ],
+      "size": {
+        "0": 400,
+        "1": 200
+      },
+      "flags": {},
+      "order": 22,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "SUPIR_model",
+          "type": "SUPIRMODEL",
+          "link": 80
+        },
+        {
+          "name": "latents",
+          "type": "LATENT",
+          "link": 58
+        },
+        {
+          "name": "captions",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "captions"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "positive",
+          "type": "SUPIR_cond_pos",
+          "links": [
+            6
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "negative",
+          "type": "SUPIR_cond_neg",
+          "links": [
+            7
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SUPIR_conditioner"
+      },
+      "widgets_values": [
+        "a red car, high quality, detailed",
+        "bad quality, blurry, messy",
+        ""
+      ]
+    }
+  ],
+  "links": [
+    [
+      4,
+      13,
+      0,
+      15,
+      0,
+      "IMAGE"
+    ],
+    [
+      5,
+      7,
+      1,
+      15,
+      1,
+      "IMAGE"
+    ],
+    [
+      6,
+      12,
+      0,
+      8,
+      2,
+      "SUPIR_cond_pos"
+    ],
+    [
+      7,
+      12,
+      1,
+      8,
+      3,
+      "SUPIR_cond_neg"
+    ],
+    [
+      11,
+      8,
+      0,
+      9,
+      1,
+      "LATENT"
+    ],
+    [
+      18,
+      18,
+      0,
+      7,
+      1,
+      "IMAGE"
+    ],
+    [
+      22,
+      7,
+      0,
+      21,
+      0,
+      "SUPIRVAE"
+    ],
+    [
+      27,
+      24,
+      0,
+      25,
+      0,
+      "UPSCALE_MODEL"
+    ],
+    [
+      28,
+      13,
+      0,
+      25,
+      1,
+      "IMAGE"
+    ],
+    [
+      29,
+      25,
+      0,
+      18,
+      0,
+      "IMAGE"
+    ],
+    [
+      44,
+      9,
+      0,
+      38,
+      0,
+      "*"
+    ],
+    [
+      45,
+      36,
+      0,
+      39,
+      0,
+      "IMAGE"
+    ],
+    [
+      46,
+      35,
+      0,
+      40,
+      0,
+      "IMAGE"
+    ],
+    [
+      58,
+      7,
+      2,
+      12,
+      1,
+      "LATENT"
+    ],
+    [
+      59,
+      7,
+      1,
+      21,
+      1,
+      "IMAGE"
+    ],
+    [
+      67,
+      9,
+      0,
+      57,
+      1,
+      "IMAGE"
+    ],
+    [
+      68,
+      57,
+      0,
+      36,
+      0,
+      "IMAGE"
+    ],
+    [
+      74,
+      36,
+      0,
+      59,
+      0,
+      "IMAGE"
+    ],
+    [
+      75,
+      35,
+      0,
+      59,
+      1,
+      "IMAGE"
+    ],
+    [
+      76,
+      21,
+      0,
+      8,
+      1,
+      "LATENT"
+    ],
+    [
+      78,
+      58,
+      0,
+      60,
+      0,
+      "*"
+    ],
+    [
+      79,
+      61,
+      0,
+      8,
+      0,
+      "SUPIRMODEL"
+    ],
+    [
+      80,
+      62,
+      0,
+      12,
+      0,
+      "SUPIRMODEL"
+    ],
+    [
+      81,
+      58,
+      1,
+      63,
+      0,
+      "*"
+    ],
+    [
+      82,
+      64,
+      0,
+      7,
+      0,
+      "SUPIRVAE"
+    ],
+    [
+      84,
+      65,
+      0,
+      9,
+      0,
+      "SUPIRVAE"
+    ],
+    [
+      85,
+      13,
+      0,
+      66,
+      0,
+      "*"
+    ],
+    [
+      86,
+      67,
+      0,
+      57,
+      0,
+      "IMAGE"
+    ],
+    [
+      87,
+      68,
+      0,
+      35,
+      0,
+      "IMAGE"
+    ],
+    [
+      88,
+      24,
+      0,
+      70,
+      0,
+      "*"
+    ]
+  ],
+  "groups": [
+    {
+      "title": "https://www.youtube.com/@stephantual",
+      "bounding": [
+        -436,
+        -377,
+        1800,
+        133
+      ],
+      "color": "#ff0000",
+      "font_size": 100,
+      "locked": false
+    },
+    {
+      "title": "URSIUM.AI - CC-BY",
+      "bounding": [
+        -436,
+        -788,
+        1879,
+        237
+      ],
+      "color": "#ff0000",
+      "font_size": 200,
+      "locked": false
+    },
+    {
+      "title": "SUPIR V2 - Default Workflow",
+      "bounding": [
+        -437,
+        -536,
+        1354,
+        144
+      ],
+      "color": "#ff0000",
+      "font_size": 100,
+      "locked": false
+    },
+    {
+      "title": "Stage 1",
+      "bounding": [
+        1070,
+        -60,
+        2167,
+        1763
+      ],
+      "color": "#b06634",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "Stage 2",
+      "bounding": [
+        3283,
+        -57,
+        4863,
+        1778
+      ],
+      "color": "#b06634",
+      "font_size": 24,
+      "locked": false
+    }
+  ],
+  "config": {},
+  "extra": {
+    "0246.VERSION": [
+      0,
+      0,
+      4
+    ],
+    "workspace_info": {
+      "id": "GEbfDqMOLkLO6_3OxzD8s"
+    }
+  },
+  "version": 0.4
+}
